@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: sunat-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sunat_service_db?allowPublicKeyRetrieval=true
+    username: 21zam03
+    password: josesamuel
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+security:
+  jwt:
+    key:
+      private: Ooaf9VjLv1_11SPy77dpf18r2VWgR1kTyJkkBrhSHilGsw1P9WamEWT987BcTl2h
+    user:
+      generator: sunat-service-app
+    expiration: 86400000
+
+parameters:
+  cookie_is_secure: false
+  cookie_max_age: 86400
+  cookie_name: auth_token
+  cookie_http_only: true
+  cookie_path: /
