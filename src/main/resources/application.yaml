@@ -22,6 +22,17 @@ security:
     user:
       generator: sunat-service-app
     expiration: 86400000
+  # Clave AES-256 (base64) para cifrar las claves SOL de los clientes en la BD.
+  # Si se cambia, las claves SOL ya guardadas dejan de poder descifrarse.
+  sol:
+    encryption-key: D/JpGrIbqVUUpPD22Tks/trZD6xAhRKgDSnxqRKwsb8=
+
+sunat:
+  api:
+    # {client_id} lo reemplaza RestTemplate con el client_id de cada cliente.
+    token-url: https://api-seguridad.sunat.gob.pe/v1/clientessol/{client_id}/oauth2/token
+  sire:
+    base-url: https://api-sire.sunat.gob.pe/v1/contribuyente/migeigv/libros
 
 parameters:
   cookie_is_secure: false

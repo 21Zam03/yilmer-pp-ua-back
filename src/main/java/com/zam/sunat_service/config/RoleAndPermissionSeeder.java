@@ -7,6 +7,7 @@ import com.zam.sunat_service.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,15 +31,20 @@ public class RoleAndPermissionSeeder implements CommandLineRunner {
     private static final List<String> ALL_PERMISSIONS = List.of(
             "INVOICE_CREATE", "INVOICE_READ", "INVOICE_VOID",
             "CREDIT_NOTE_CREATE", "REPORT_READ",
-            "USER_READ", "USER_CREATE", "CONFIG_UPDATE"
+            "USER_READ", "USER_CREATE", "CONFIG_UPDATE",
+            "CLIENT_READ", "CLIENT_CREATE", "CLIENT_UPDATE", "CLIENT_DELETE",
+            "SIRE_READ", "SIRE_SYNC"
     );
 
     private static final List<String> CONTADOR_PERMISSIONS = List.of(
-            "INVOICE_READ", "INVOICE_VOID", "CREDIT_NOTE_CREATE", "REPORT_READ"
+            "INVOICE_READ", "INVOICE_VOID", "CREDIT_NOTE_CREATE", "REPORT_READ",
+            "CLIENT_READ", "CLIENT_CREATE", "CLIENT_UPDATE",
+            "SIRE_READ", "SIRE_SYNC"
     );
 
     private static final List<String> VENDEDOR_PERMISSIONS = List.of(
-            "INVOICE_CREATE", "INVOICE_READ"
+            "INVOICE_CREATE", "INVOICE_READ",
+            "CLIENT_READ"
     );
 
     @Override
@@ -62,16 +68,26 @@ public class RoleAndPermissionSeeder implements CommandLineRunner {
         return existing;
     }
 
+    // Crea el rol si no existe; si ya existe, solo le agrega los permisos que le falten
+    // (para que los permisos nuevos lleguen a bases ya sembradas). Nunca quita permisos.
     private void ensureRoleExists(String roleName, List<String> permissionNames, Map<String, PermissionEntity> permissionsByName) {
-        if (roleRepository.findByName(roleName).isPresent()) {
+        RoleEntity role = roleRepository.findByName(roleName).orElseGet(() -> {
+            RoleEntity toCreate = new RoleEntity();
+            toCreate.setName(roleName);
+            toCreate.setPermissionList(new HashSet<>());
+            return toCreate;
+        });
+        Set<String> current = role.getPermissionList().stream()
+                .map(PermissionEntity::getName)
+                .collect(Collectors.toSet());
+        List<PermissionEntity> missing = permissionNames.stream()
+                .filter(name -> !current.contains(name))
+                .map(permissionsByName::get)
+                .toList();
+        if (role.getRoleId() != null && missing.isEmpty()) {
             return;
         }
-        RoleEntity role = new RoleEntity();
-        role.setName(roleName);
-        Set<PermissionEntity> permissions = permissionNames.stream()
-                .map(permissionsByName::get)
-                .collect(Collectors.toSet());
-        role.setPermissionList(permissions);
+        role.getPermissionList().addAll(missing);
         roleRepository.save(role);
     }
 }

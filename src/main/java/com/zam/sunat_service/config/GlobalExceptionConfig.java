@@ -1,7 +1,10 @@
 package com.zam.sunat_service.config;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.zam.sunat_service.exceptions.BusinessException;
+import com.zam.sunat_service.exceptions.DuplicateException;
 import com.zam.sunat_service.exceptions.NotFoundException;
+import com.zam.sunat_service.exceptions.SunatApiException;
 import com.zam.sunat_service.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +13,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,6 +28,49 @@ public class GlobalExceptionConfig {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(404, "Recurso no encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<?> handleDuplicateException(DuplicateException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(409, ex.getMessage(), ex.getMessage()));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusinessException(BusinessException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(400, "Error de negocio", ex.getMessage()));
+    }
+
+    @ExceptionHandler(SunatApiException.class)
+    public ResponseEntity<?> handleSunatApiException(SunatApiException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_GATEWAY)
+                .body(new ErrorResponse(502, "Error al comunicarse con SUNAT", ex.getMessage()));
+    }
+
+    // Ej. /api/clients/abc o ?enabled=quizas: sin esto caería en el genérico como 500.
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, MissingServletRequestParameterException.class})
+    public ResponseEntity<?> handleBadParameter(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(400, "Parámetro inválido", ex.getMessage()));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<?> handleNoResourceFound(NoResourceFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(404, "Recurso no encontrado", ex.getMessage()));
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<?> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
+        return ResponseEntity
+                .status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(new ErrorResponse(405, "Método no permitido", ex.getMessage()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

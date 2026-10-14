@@ -1,0 +1,238 @@
+{
+  "info": {
+    "_postman_id": "ffee2720-e1ef-491f-9ddf-42e652e7ff77",
+    "name": "API SUNAT",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58941086",
+    "_collection_link": "https://go.postman.co/collection/58941086-ffee2720-e1ef-491f-9ddf-42e652e7ff77?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Generar Token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password"
+            },
+            {
+              "key": "scope",
+              "value": "https://api.sunat.gob.pe"
+            },
+            {
+              "key": "client_id",
+              "value": "9c7f90e1-1d33-49d3-8f44-81ca124ca974"
+            },
+            {
+              "key": "client_secret",
+              "value": "9/3V5Jd2BRWBhlgZgr3QkA=="
+            },
+            {
+              "key": "username",
+              "value": ""
+            },
+            {
+              "key": "password",
+              "value": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://api-seguridad.sunat.gob.pe/v1/clientessol/9c7f90e1-1d33-49d3-8f44-81ca124ca974/oauth2/token",
+          "protocol": "https",
+          "host": [
+            "api-seguridad",
+            "sunat",
+            "gob",
+            "pe"
+          ],
+          "path": [
+            "v1",
+            "clientessol",
+            "9c7f90e1-1d33-49d3-8f44-81ca124ca974",
+            "oauth2",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Generar Ticket",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJraWQiOiJhcGkuc3VuYXQuZ29iLnBlLmtpZDAwMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMDczMzQ5NTI3MyIsImF1ZCI6Ilt7XCJhcGlcIjpcImh0dHBzOlwvXC9hcGktY3BlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvY29udHJvbGNwZVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cmlidXllbnRlXC9jb250cm9sbXNnXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2Vudmlvc3NwXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2dlbVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS1zaXJlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvbWlnZWlndlwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS5zdW5hdC5nb2IucGVcIixcInJlY3Vyc29cIjpbe1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvYXV0b3JpemFjaW9uc2FsaWRhXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvZG9jdW1lbnRvc3N1c3RlbnRhdG9yaW9zXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvaW5ncmVzb1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3Byb2dyYW1hY2lvblwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3NhbGlkYVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9XX1dIiwidXNlcmRhdGEiOnsibnVtUlVDIjoiMTA3MzM0OTUyNzMiLCJ0aWNrZXQiOiIxMjg2MjE0OTIyNjEzIiwibnJvUmVnaXN0cm8iOiIiLCJhcGVNYXRlcm5vIjoiIiwibG9naW4iOiIxMDczMzQ5NTI3MzczMzQ5NTI3Iiwibm9tYnJlQ29tcGxldG8iOiJQQVJETyBPTEFZQSBNQVJMRU5ZIEZSQU5TSEVTQ0EiLCJub21icmVzIjoiUEFSRE8gT0xBWUEgTUFSTEVOWSBGUkFOU0hFU0NBIiwiY29kRGVwZW5kIjoiMDAyMyIsImNvZFRPcGVDb21lciI6IiIsImNvZENhdGUiOiIiLCJuaXZlbFVPIjowLCJjb2RVTyI6IiIsImNvcnJlbyI6IiIsInVzdWFyaW9TT0wiOiI3MzM0OTUyNyIsImlkIjoiIiwiZGVzVU8iOiIiLCJkZXNDYXRlIjoiIiwiYXBlUGF0ZXJubyI6IiIsImlkQ2VsdWxhciI6bnVsbCwibWFwIjp7ImlzQ2xvbiI6ZmFsc2UsImRkcERhdGEiOnsiZGRwX251bXJ1YyI6IjEwNzMzNDk1MjczIiwiZGRwX251bXJlZyI6IjAwMjMiLCJkZHBfZXN0YWRvIjoiMDAiLCJkZHBfZmxhZzIyIjoiMDAiLCJkZHBfdWJpZ2VvIjoiMTUwMTE5IiwiZGRwX3RhbWFubyI6IjAzIiwiZGRwX3Rwb2VtcCI6IjAyIiwiZGRwX2NpaXUiOiI1MjUxMSJ9LCJpZE1lbnUiOiIxMjg2MjE0OTIyNjEzIiwiam5kaVBvb2wiOiJwMDAyMyIsInRpcFVzdWFyaW8iOiIwIiwidGlwT3JpZ2VuIjoiSVQiLCJwcmltZXJBY2Nlc28iOmZhbHNlfX0sIm5iZiI6MTc5MTk0NjE2MiwiY2xpZW50SWQiOiI5YzdmOTBlMS0xZDMzLTQ5ZDMtOGY0NC04MWNhMTI0Y2E5NzQiLCJpc3MiOiJodHRwczpcL1wvYXBpLXNlZ3VyaWRhZC5zdW5hdC5nb2IucGVcL3YxXC9jbGllbnRlc3NvbFwvOWM3ZjkwZTEtMWQzMy00OWQzLThmNDQtODFjYTEyNGNhOTc0XC9vYXV0aDJcL3Rva2VuXC8iLCJleHAiOjE3OTE5NDk3NjIsImdyYW50VHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzkxOTQ2MTYyfQ.KTeZpq-fre5U-VG5rEz0oy8cVyA9sGm-sBqzRFCGmsjRPZOjXssItdJdwa7APRgyRnELsUXT4Y0dtFhtGeu3G--GgCuMr5jb6B-A2ZjMSdbYUH5doAUWyzdvDsClK8iXrndSzvaulN3SmtM82GwMxlJQOVH1aB6h8VDrUmXfztu9O-6QZBzH9aJxNIDi5FUOwXyMvd4vSxrYBgnWE_qHL1Jp7KOdc0IDcJODhZkhl2Ie1sazFZREpQaj8a22ddzVtomUkmGLKMreu6bTTQxpacH0lsUHANs6pROWcAnCfNmmCvBlrWnfqHMsP4mMmKC-_FBpfPEy2AzkhmAlZ-CBCg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-sire.sunat.gob.pe/v1/contribuyente/migeigv/libros/rvie/propuesta/web/propuesta/202610/exportapropuesta?codTipoArchivo=0",
+          "protocol": "https",
+          "host": [
+            "api-sire",
+            "sunat",
+            "gob",
+            "pe"
+          ],
+          "path": [
+            "v1",
+            "contribuyente",
+            "migeigv",
+            "libros",
+            "rvie",
+            "propuesta",
+            "web",
+            "propuesta",
+            "202610",
+            "exportapropuesta"
+          ],
+          "query": [
+            {
+              "key": "codTipoArchivo",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultar Ticket",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJraWQiOiJhcGkuc3VuYXQuZ29iLnBlLmtpZDAwMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMDczMzQ5NTI3MyIsImF1ZCI6Ilt7XCJhcGlcIjpcImh0dHBzOlwvXC9hcGktY3BlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvY29udHJvbGNwZVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cmlidXllbnRlXC9jb250cm9sbXNnXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2Vudmlvc3NwXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2dlbVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS1zaXJlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvbWlnZWlndlwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS5zdW5hdC5nb2IucGVcIixcInJlY3Vyc29cIjpbe1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvYXV0b3JpemFjaW9uc2FsaWRhXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvZG9jdW1lbnRvc3N1c3RlbnRhdG9yaW9zXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvaW5ncmVzb1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3Byb2dyYW1hY2lvblwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3NhbGlkYVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9XX1dIiwidXNlcmRhdGEiOnsibnVtUlVDIjoiMTA3MzM0OTUyNzMiLCJ0aWNrZXQiOiIxMjg2MjE0OTIyNjEzIiwibnJvUmVnaXN0cm8iOiIiLCJhcGVNYXRlcm5vIjoiIiwibG9naW4iOiIxMDczMzQ5NTI3MzczMzQ5NTI3Iiwibm9tYnJlQ29tcGxldG8iOiJQQVJETyBPTEFZQSBNQVJMRU5ZIEZSQU5TSEVTQ0EiLCJub21icmVzIjoiUEFSRE8gT0xBWUEgTUFSTEVOWSBGUkFOU0hFU0NBIiwiY29kRGVwZW5kIjoiMDAyMyIsImNvZFRPcGVDb21lciI6IiIsImNvZENhdGUiOiIiLCJuaXZlbFVPIjowLCJjb2RVTyI6IiIsImNvcnJlbyI6IiIsInVzdWFyaW9TT0wiOiI3MzM0OTUyNyIsImlkIjoiIiwiZGVzVU8iOiIiLCJkZXNDYXRlIjoiIiwiYXBlUGF0ZXJubyI6IiIsImlkQ2VsdWxhciI6bnVsbCwibWFwIjp7ImlzQ2xvbiI6ZmFsc2UsImRkcERhdGEiOnsiZGRwX251bXJ1YyI6IjEwNzMzNDk1MjczIiwiZGRwX251bXJlZyI6IjAwMjMiLCJkZHBfZXN0YWRvIjoiMDAiLCJkZHBfZmxhZzIyIjoiMDAiLCJkZHBfdWJpZ2VvIjoiMTUwMTE5IiwiZGRwX3RhbWFubyI6IjAzIiwiZGRwX3Rwb2VtcCI6IjAyIiwiZGRwX2NpaXUiOiI1MjUxMSJ9LCJpZE1lbnUiOiIxMjg2MjE0OTIyNjEzIiwiam5kaVBvb2wiOiJwMDAyMyIsInRpcFVzdWFyaW8iOiIwIiwidGlwT3JpZ2VuIjoiSVQiLCJwcmltZXJBY2Nlc28iOmZhbHNlfX0sIm5iZiI6MTc5MTk0NjE2MiwiY2xpZW50SWQiOiI5YzdmOTBlMS0xZDMzLTQ5ZDMtOGY0NC04MWNhMTI0Y2E5NzQiLCJpc3MiOiJodHRwczpcL1wvYXBpLXNlZ3VyaWRhZC5zdW5hdC5nb2IucGVcL3YxXC9jbGllbnRlc3NvbFwvOWM3ZjkwZTEtMWQzMy00OWQzLThmNDQtODFjYTEyNGNhOTc0XC9vYXV0aDJcL3Rva2VuXC8iLCJleHAiOjE3OTE5NDk3NjIsImdyYW50VHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzkxOTQ2MTYyfQ.KTeZpq-fre5U-VG5rEz0oy8cVyA9sGm-sBqzRFCGmsjRPZOjXssItdJdwa7APRgyRnELsUXT4Y0dtFhtGeu3G--GgCuMr5jb6B-A2ZjMSdbYUH5doAUWyzdvDsClK8iXrndSzvaulN3SmtM82GwMxlJQOVH1aB6h8VDrUmXfztu9O-6QZBzH9aJxNIDi5FUOwXyMvd4vSxrYBgnWE_qHL1Jp7KOdc0IDcJODhZkhl2Ie1sazFZREpQaj8a22ddzVtomUkmGLKMreu6bTTQxpacH0lsUHANs6pROWcAnCfNmmCvBlrWnfqHMsP4mMmKC-_FBpfPEy2AzkhmAlZ-CBCg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-sire.sunat.gob.pe/v1/contribuyente/migeigv/libros/rvierce/gestionprocesosmasivos/web/masivo/consultaestadotickets?perIni=202610&perFin=202610&page=1&perPage=20&numTicket=20260300000007",
+          "protocol": "https",
+          "host": [
+            "api-sire",
+            "sunat",
+            "gob",
+            "pe"
+          ],
+          "path": [
+            "v1",
+            "contribuyente",
+            "migeigv",
+            "libros",
+            "rvierce",
+            "gestionprocesosmasivos",
+            "web",
+            "masivo",
+            "consultaestadotickets"
+          ],
+          "query": [
+            {
+              "key": "perIni",
+              "value": "202610"
+            },
+            {
+              "key": "perFin",
+              "value": "202610"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "perPage",
+              "value": "20"
+            },
+            {
+              "key": "numTicket",
+              "value": "20260300000007"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Descargar Archivo",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJraWQiOiJhcGkuc3VuYXQuZ29iLnBlLmtpZDAwMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMDczMzQ5NTI3MyIsImF1ZCI6Ilt7XCJhcGlcIjpcImh0dHBzOlwvXC9hcGktY3BlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvY29udHJvbGNwZVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cmlidXllbnRlXC9jb250cm9sbXNnXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2Vudmlvc3NwXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyaWJ1eWVudGVcL2dlbVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS1zaXJlLnN1bmF0LmdvYi5wZVwiLFwicmVjdXJzb1wiOlt7XCJpZFwiOlwiXC92MVwvY29udHJpYnV5ZW50ZVwvbWlnZWlndlwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2RvY3VtZW50b3NzdXN0ZW50YXRvcmlvc1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL2luZ3Jlc29cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9wcm9ncmFtYWNpb25cIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifSx7XCJpZFwiOlwiXC92MVwvY29udHJvbGFkdWFuZXJvXC9zYWxpZGFcIixcImluZGljYWRvclwiOlwiMVwiLFwiZ3RcIjpcIjEwMDAwMFwifV19LHtcImFwaVwiOlwiaHR0cHM6XC9cL2FwaS5zdW5hdC5nb2IucGVcIixcInJlY3Vyc29cIjpbe1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvYXV0b3JpemFjaW9uc2FsaWRhXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvZG9jdW1lbnRvc3N1c3RlbnRhdG9yaW9zXCIsXCJpbmRpY2Fkb3JcIjpcIjFcIixcImd0XCI6XCIxMDAwMDBcIn0se1wiaWRcIjpcIlwvdjFcL2NvbnRyb2xhZHVhbmVyb1wvaW5ncmVzb1wiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3Byb2dyYW1hY2lvblwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9LHtcImlkXCI6XCJcL3YxXC9jb250cm9sYWR1YW5lcm9cL3NhbGlkYVwiLFwiaW5kaWNhZG9yXCI6XCIxXCIsXCJndFwiOlwiMTAwMDAwXCJ9XX1dIiwidXNlcmRhdGEiOnsibnVtUlVDIjoiMTA3MzM0OTUyNzMiLCJ0aWNrZXQiOiIxMjg2MjE0OTIyNjEzIiwibnJvUmVnaXN0cm8iOiIiLCJhcGVNYXRlcm5vIjoiIiwibG9naW4iOiIxMDczMzQ5NTI3MzczMzQ5NTI3Iiwibm9tYnJlQ29tcGxldG8iOiJQQVJETyBPTEFZQSBNQVJMRU5ZIEZSQU5TSEVTQ0EiLCJub21icmVzIjoiUEFSRE8gT0xBWUEgTUFSTEVOWSBGUkFOU0hFU0NBIiwiY29kRGVwZW5kIjoiMDAyMyIsImNvZFRPcGVDb21lciI6IiIsImNvZENhdGUiOiIiLCJuaXZlbFVPIjowLCJjb2RVTyI6IiIsImNvcnJlbyI6IiIsInVzdWFyaW9TT0wiOiI3MzM0OTUyNyIsImlkIjoiIiwiZGVzVU8iOiIiLCJkZXNDYXRlIjoiIiwiYXBlUGF0ZXJubyI6IiIsImlkQ2VsdWxhciI6bnVsbCwibWFwIjp7ImlzQ2xvbiI6ZmFsc2UsImRkcERhdGEiOnsiZGRwX251bXJ1YyI6IjEwNzMzNDk1MjczIiwiZGRwX251bXJlZyI6IjAwMjMiLCJkZHBfZXN0YWRvIjoiMDAiLCJkZHBfZmxhZzIyIjoiMDAiLCJkZHBfdWJpZ2VvIjoiMTUwMTE5IiwiZGRwX3RhbWFubyI6IjAzIiwiZGRwX3Rwb2VtcCI6IjAyIiwiZGRwX2NpaXUiOiI1MjUxMSJ9LCJpZE1lbnUiOiIxMjg2MjE0OTIyNjEzIiwiam5kaVBvb2wiOiJwMDAyMyIsInRpcFVzdWFyaW8iOiIwIiwidGlwT3JpZ2VuIjoiSVQiLCJwcmltZXJBY2Nlc28iOmZhbHNlfX0sIm5iZiI6MTc5MTk0NjE2MiwiY2xpZW50SWQiOiI5YzdmOTBlMS0xZDMzLTQ5ZDMtOGY0NC04MWNhMTI0Y2E5NzQiLCJpc3MiOiJodHRwczpcL1wvYXBpLXNlZ3VyaWRhZC5zdW5hdC5nb2IucGVcL3YxXC9jbGllbnRlc3NvbFwvOWM3ZjkwZTEtMWQzMy00OWQzLThmNDQtODFjYTEyNGNhOTc0XC9vYXV0aDJcL3Rva2VuXC8iLCJleHAiOjE3OTE5NDk3NjIsImdyYW50VHlwZSI6InBhc3N3b3JkIiwiaWF0IjoxNzkxOTQ2MTYyfQ.KTeZpq-fre5U-VG5rEz0oy8cVyA9sGm-sBqzRFCGmsjRPZOjXssItdJdwa7APRgyRnELsUXT4Y0dtFhtGeu3G--GgCuMr5jb6B-A2ZjMSdbYUH5doAUWyzdvDsClK8iXrndSzvaulN3SmtM82GwMxlJQOVH1aB6h8VDrUmXfztu9O-6QZBzH9aJxNIDi5FUOwXyMvd4vSxrYBgnWE_qHL1Jp7KOdc0IDcJODhZkhl2Ie1sazFZREpQaj8a22ddzVtomUkmGLKMreu6bTTQxpacH0lsUHANs6pROWcAnCfNmmCvBlrWnfqHMsP4mMmKC-_FBpfPEy2AzkhmAlZ-CBCg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-sire.sunat.gob.pe/v1/contribuyente/migeigv/libros/rvierce/gestionprocesosmasivos/web/masivo/archivoreporte?nomArchivoReporte=LE1073349527320261000014040001EXP2.zip&codTipoArchivoReporte=00&codLibro=140000&numTicket=20260300000007&perTributario=202610&codProceso=10",
+          "protocol": "https",
+          "host": [
+            "api-sire",
+            "sunat",
+            "gob",
+            "pe"
+          ],
+          "path": [
+            "v1",
+            "contribuyente",
+            "migeigv",
+            "libros",
+            "rvierce",
+            "gestionprocesosmasivos",
+            "web",
+            "masivo",
+            "archivoreporte"
+          ],
+          "query": [
+            {
+              "key": "nomArchivoReporte",
+              "value": "LE1073349527320261000014040001EXP2.zip"
+            },
+            {
+              "key": "codTipoArchivoReporte",
+              "value": "00"
+            },
+            {
+              "key": "codLibro",
+              "value": "140000"
+            },
+            {
+              "key": "numTicket",
+              "value": "20260300000007"
+            },
+            {
+              "key": "perTributario",
+              "value": "202610"
+            },
+            {
+              "key": "codProceso",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
