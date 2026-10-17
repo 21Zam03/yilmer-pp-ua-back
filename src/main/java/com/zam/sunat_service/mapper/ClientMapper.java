@@ -19,6 +19,9 @@ public class ClientMapper {
         entity.setContactName(blankToNull(request.getContactName()));
         entity.setPhoneNumber(blankToNull(request.getPhoneNumber()));
         entity.setEmail(blankToNull(request.getEmail()));
+        if (request.getTrabajaDomingos() != null) {
+            entity.setTrabajaDomingos(request.getTrabajaDomingos());
+        }
     }
 
     public static ClientResponse entityToResponse(ClientEntity entity) {
@@ -36,6 +39,7 @@ public class ClientMapper {
         response.setPhoneNumber(entity.getPhoneNumber());
         response.setEmail(entity.getEmail());
         response.setEnabled(entity.isEnabled());
+        response.setTrabajaDomingos(entity.isTrabajaDomingos());
         response.setCreatedDate(entity.getCreatedDate());
         response.setUpdatedDate(entity.getUpdatedDate());
         return response;

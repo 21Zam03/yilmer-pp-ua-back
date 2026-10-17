@@ -5,6 +5,7 @@ import com.zam.sunat_service.exceptions.BusinessException;
 import com.zam.sunat_service.exceptions.DuplicateException;
 import com.zam.sunat_service.exceptions.NotFoundException;
 import com.zam.sunat_service.mapper.ClientMapper;
+import com.zam.sunat_service.repository.AlertaRepository;
 import com.zam.sunat_service.repository.ClientRepository;
 import com.zam.sunat_service.request.ClientRequest;
 import com.zam.sunat_service.response.ClientResponse;
@@ -26,11 +27,14 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final SolPasswordEncryptor solPasswordEncryptor;
+    private final AlertaRepository alertaRepository;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, SolPasswordEncryptor solPasswordEncryptor) {
+    public ClientServiceImpl(ClientRepository clientRepository, SolPasswordEncryptor solPasswordEncryptor,
+                             AlertaRepository alertaRepository) {
         this.clientRepository = clientRepository;
         this.solPasswordEncryptor = solPasswordEncryptor;
+        this.alertaRepository = alertaRepository;
     }
 
     @Override
@@ -87,8 +91,13 @@ public class ClientServiceImpl implements ClientService {
             throw new DuplicateException("Ya existe otro cliente registrado con el RUC " + request.getRuc());
         }
 
+        String previousRuc = client.getRuc();
         String previousCredentials = client.getRuc() + client.getSolUser();
         ClientMapper.requestToEntity(request, client);
+        // Las alertas guardan el RUC (no una FK): se mueven al nuevo RUC para no quedar huérfanas.
+        if (!previousRuc.equals(client.getRuc())) {
+            alertaRepository.updateClienteRuc(previousRuc, client.getRuc());
+        }
         boolean credentialsChanged = !previousCredentials.equals(client.getRuc() + client.getSolUser());
         // Clave SOL vacía al editar = conservar la actual.
         if (request.getSolPassword() != null && !request.getSolPassword().isBlank()) {
@@ -117,7 +126,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public void deleteClient(Integer clientId) {
-        clientRepository.delete(findClient(clientId));
+        ClientEntity client = findClient(clientId);
+        // Tickets, ventas y programaciones se borran por ON DELETE CASCADE; las alertas no tienen FK.
+        alertaRepository.deleteByClienteRuc(client.getRuc());
+        clientRepository.delete(client);
     }
 
     /**

@@ -50,6 +50,9 @@ public class ClientRequest {
     @Pattern(regexp = "^$|^\\d{9}$", message = "El teléfono debe tener 9 dígitos")
     private String phoneNumber;
 
+    // Opcional: null = al crear, false; al editar, conservar el valor actual.
+    private Boolean trabajaDomingos;
+
     @Email(message = "El correo no tiene un formato válido")
     @Size(max = 100, message = "El correo no puede superar los 100 caracteres")
     private String email;

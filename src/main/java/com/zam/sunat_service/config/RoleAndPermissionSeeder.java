@@ -33,13 +33,15 @@ public class RoleAndPermissionSeeder implements CommandLineRunner {
             "CREDIT_NOTE_CREATE", "REPORT_READ",
             "USER_READ", "USER_CREATE", "CONFIG_UPDATE",
             "CLIENT_READ", "CLIENT_CREATE", "CLIENT_UPDATE", "CLIENT_DELETE",
-            "SIRE_READ", "SIRE_SYNC"
+            "SIRE_READ", "SIRE_SYNC",
+            "ALERT_READ"
     );
 
     private static final List<String> CONTADOR_PERMISSIONS = List.of(
             "INVOICE_READ", "INVOICE_VOID", "CREDIT_NOTE_CREATE", "REPORT_READ",
             "CLIENT_READ", "CLIENT_CREATE", "CLIENT_UPDATE",
-            "SIRE_READ", "SIRE_SYNC"
+            "SIRE_READ", "SIRE_SYNC",
+            "ALERT_READ"
     );
 
     private static final List<String> VENDEDOR_PERMISSIONS = List.of(

@@ -65,6 +65,10 @@ public class ClientEntity {
     @Column(name = "activo", nullable = false)
     private boolean enabled;
 
+    // Si es false, los domingos sin ventas no generan la alerta SIN_VENTAS. El DEFAULT rellena los clientes existentes.
+    @Column(name = "trabaja_domingos", nullable = false, columnDefinition = "bit(1) NOT NULL DEFAULT 0")
+    private boolean trabajaDomingos;
+
     @Column(name = "fecha_creacion")
     private LocalDateTime createdDate;
 

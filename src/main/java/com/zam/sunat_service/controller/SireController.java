@@ -1,6 +1,8 @@
 package com.zam.sunat_service.controller;
 
+import com.zam.sunat_service.request.ProgramacionSireRequest;
 import com.zam.sunat_service.request.SireSyncRequest;
+import com.zam.sunat_service.service.ProgramacionSireService;
 import com.zam.sunat_service.service.SireService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ public class SireController {
     public static final String API_PATH = "/api/sire";
 
     private final SireService sireService;
+    private final ProgramacionSireService programacionService;
 
     @Autowired
-    public SireController(SireService sireService) {
+    public SireController(SireService sireService, ProgramacionSireService programacionService) {
         this.sireService = sireService;
+        this.programacionService = programacionService;
     }
 
     // 202: SUNAT procesa la solicitud en segundo plano; el frontend consulta el estado del ticket devuelto.
@@ -40,6 +44,18 @@ public class SireController {
             @RequestParam(defaultValue = "20") int size
     ) {
         return ResponseEntity.ok(sireService.obtenerVentas(ruc, periodo, searchKey, page, size));
+    }
+
+    @GetMapping("/ventas/programacion")
+    @PreAuthorize("hasAuthority('PERMISSION_SIRE_READ')")
+    public ResponseEntity<?> obtenerProgramacionVentas(@RequestParam String ruc) {
+        return ResponseEntity.ok(programacionService.obtenerProgramacionVentas(ruc));
+    }
+
+    @PutMapping("/ventas/programacion")
+    @PreAuthorize("hasAuthority('PERMISSION_SIRE_SYNC')")
+    public ResponseEntity<?> guardarProgramacionVentas(@Valid @RequestBody ProgramacionSireRequest request) {
+        return ResponseEntity.ok(programacionService.guardarProgramacionVentas(request));
     }
 
     @GetMapping("/tickets/{ticketId}/estado")

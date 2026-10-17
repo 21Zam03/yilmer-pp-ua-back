@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
@@ -35,5 +36,15 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Integer> {
     );
 
     long countByEnabled(boolean enabled);
+
+    @Query("""
+    SELECT COUNT(c) FROM ClientEntity c
+    WHERE c.enabled = true AND (c.sunatClientId IS NULL OR c.sunatClientSecret IS NULL)
+    """)
+    long countActivosSinCredencialesApi();
+
+    // El dígito se pasa como texto ("0".."9"): el RUC se guarda como String.
+    @Query("SELECT c FROM ClientEntity c WHERE c.enabled = true AND c.ruc LIKE CONCAT('%', :digito)")
+    List<ClientEntity> findActivosPorUltimoDigitoRuc(@Param("digito") String digito);
 
 }

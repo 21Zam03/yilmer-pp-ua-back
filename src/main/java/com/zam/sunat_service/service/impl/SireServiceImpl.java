@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import com.zam.sunat_service.response.sunat.SireConsultaTicketsResponse.ArchivoReporte;
 import com.zam.sunat_service.response.sunat.SireConsultaTicketsResponse.Registro;
+import com.zam.sunat_service.service.AlertaService;
 import com.zam.sunat_service.service.SireService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class SireServiceImpl implements SireService {
     private final SireApiClient sireApiClient;
     private final SireVentasTxtParser ventasParser;
     private final TransactionTemplate transactionTemplate;
+    private final AlertaService alertaService;
 
     @Autowired
     public SireServiceImpl(ClientRepository clientRepository,
@@ -64,13 +66,15 @@ public class SireServiceImpl implements SireService {
                            VentaSireRepository ventaRepository,
                            SireApiClient sireApiClient,
                            SireVentasTxtParser ventasParser,
-                           PlatformTransactionManager transactionManager) {
+                           PlatformTransactionManager transactionManager,
+                           AlertaService alertaService) {
         this.clientRepository = clientRepository;
         this.ticketRepository = ticketRepository;
         this.ventaRepository = ventaRepository;
         this.sireApiClient = sireApiClient;
         this.ventasParser = ventasParser;
         this.transactionTemplate = new TransactionTemplate(transactionManager);
+        this.alertaService = alertaService;
     }
 
     // Sin @Transactional: la llamada HTTP a SUNAT no debe retener una conexión de BD abierta.
@@ -236,6 +240,14 @@ public class SireServiceImpl implements SireService {
             log.info("SIRE ventas {} {}: {} comprobantes guardados ({} reemplazados), ticket {} -> {}",
                     ticket.getClient().getRuc(), ticket.getPeriodo(), ventas.size(), borradas, ticket.getNumTicket(), estadoFinal);
         });
+
+        // Fuera de la transacción de las ventas: si la alerta falla, la sincronización ya quedó guardada.
+        try {
+            alertaService.actualizarAlertaSinVentas(ticket.getClient(), ticket.getPeriodo());
+        } catch (RuntimeException e) {
+            log.error("SIRE ventas {} {}: no se pudo actualizar la alerta de días sin ventas",
+                    ticket.getClient().getRuc(), ticket.getPeriodo(), e);
+        }
     }
 
     private void actualizar(TicketSireEntity ticket, EstadoTicketSire estado, String mensaje, Integer cantidad) {

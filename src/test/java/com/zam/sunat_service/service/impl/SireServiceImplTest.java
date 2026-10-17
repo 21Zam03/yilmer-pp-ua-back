@@ -9,6 +9,7 @@ import com.zam.sunat_service.repository.TicketSireRepository;
 import com.zam.sunat_service.repository.VentaSireRepository;
 import com.zam.sunat_service.request.SireSyncRequest;
 import com.zam.sunat_service.response.TicketSireResponse;
+import com.zam.sunat_service.service.AlertaService;
 import com.zam.sunat_service.service.SunatAuthService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,7 +65,7 @@ class SireServiceImplTest {
         sunat = MockRestServiceServer.bindTo(restTemplate).build();
         SireApiClient apiClient = new SireApiClient(restTemplate, authService, BASE);
         service = new SireServiceImpl(clientRepository, ticketRepository, ventaRepository, apiClient,
-                new SireVentasTxtParser(), mock(PlatformTransactionManager.class));
+                new SireVentasTxtParser(), mock(PlatformTransactionManager.class), mock(AlertaService.class));
 
         client = new ClientEntity();
         client.setRuc(RUC);

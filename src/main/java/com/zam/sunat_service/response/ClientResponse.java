@@ -26,6 +26,7 @@ public class ClientResponse {
     private String phoneNumber;
     private String email;
     private boolean enabled;
+    private boolean trabajaDomingos;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
