@@ -51,6 +51,7 @@ public class SireServiceImpl implements SireService {
     // ZIP vacío (0 bytes) = sin movimientos. Desde 1 KB se espera que traiga comprobantes; si no, es un error
     // de formato. Por debajo de 1 KB se procesa igual: un ZIP con 1 o 2 comprobantes puede pesar menos.
     private static final int TAMANO_MINIMO_CON_DATOS = 1024;
+    public static final String MENSAJE_SIN_VENTAS = "SUNAT no reporta ventas para este periodo: se registraron 0 comprobantes.";
 
     private final ClientRepository clientRepository;
     private final TicketSireRepository ticketRepository;
@@ -199,6 +200,14 @@ public class SireServiceImpl implements SireService {
                 return;
             }
 
+            // Sin ventas, SUNAT lista igual un ZIP pero con nomArchivoContenido = null, y al descargarlo responde 500.
+            // Con ventas, nomArchivoContenido trae el nombre del TXT. Se cierra sin intentar la descarga.
+            if (archivo.nomArchivoContenido() == null || archivo.nomArchivoContenido().isBlank()) {
+                log.info("SIRE ticket {}: terminado sin contenido (nomArchivoContenido=null): 0 ventas", ticket.getNumTicket());
+                guardarVentas(ticket, List.of(), EstadoTicketSire.COMPLETADO, MENSAJE_SIN_VENTAS);
+                return;
+            }
+
             actualizar(ticket, EstadoTicketSire.DESCARGANDO, null, null);
             byte[] zip = sireApiClient.descargarArchivo(ruc, registro, archivo);
             log.info("SIRE ticket {}: ZIP descargado ({} bytes, cntCPInformados={})", ticket.getNumTicket(), zip.length, informados);
@@ -228,13 +237,18 @@ public class SireServiceImpl implements SireService {
         }
     }
 
-    // Reemplaza las ventas del periodo y cierra el ticket en una sola transacción: o queda todo o nada.
     private void guardarVentas(TicketSireEntity ticket, List<VentaSireEntity> ventas, EstadoTicketSire estadoFinal) {
+        guardarVentas(ticket, ventas, estadoFinal, null);
+    }
+
+    // Reemplaza las ventas del periodo y cierra el ticket en una sola transacción: o queda todo o nada.
+    private void guardarVentas(TicketSireEntity ticket, List<VentaSireEntity> ventas, EstadoTicketSire estadoFinal,
+                               String mensaje) {
         transactionTemplate.executeWithoutResult(status -> {
             int borradas = ventaRepository.deleteByClientAndPeriodo(ticket.getClient(), ticket.getPeriodo());
             ventaRepository.saveAll(ventas);
             ticket.setEstado(estadoFinal);
-            ticket.setMensaje(null);
+            ticket.setMensaje(mensaje);
             ticket.setCantidadRegistros(ventas.size());
             ticketRepository.save(ticket);
             log.info("SIRE ventas {} {}: {} comprobantes guardados ({} reemplazados), ticket {} -> {}",

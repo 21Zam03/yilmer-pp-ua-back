@@ -49,6 +49,8 @@ public class SecurityConfig {
                     ));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     config.setAllowedHeaders(List.of("*"));
+                    // Para que el frontend lea el nombre del archivo en las descargas (ej. reportes Excel).
+                    config.setExposedHeaders(List.of("Content-Disposition"));
                     config.setAllowCredentials(true);
                     return config;
                 }))

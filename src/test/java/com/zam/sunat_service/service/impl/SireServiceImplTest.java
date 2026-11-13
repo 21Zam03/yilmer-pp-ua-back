@@ -196,6 +196,30 @@ class SireServiceImplTest {
     }
 
     @Test
+    void sinNomArchivoContenidoQuedaCompletadoConCeroVentasSinDescargar() {
+        // Respuesta real de SUNAT para un periodo sin ventas: la descarga de ese ZIP responde 500.
+        TicketSireEntity ticket = ticketPendiente();
+        String sinContenido = """
+                {"paginacion":{"page":1,"perPage":20,"totalRegistros":1},
+                 "registros":[{"numTicket":"%s","perTributario":"202610","codProceso":"10",
+                   "codEstadoProceso":"06","desEstadoProceso":"Terminado",
+                   "detalleTicket":{"numTicket":"%s","codEstadoEnvio":"06","desEstadoEnvio":"Terminado","cntCPInformados":0},
+                   "archivoReporte":[{"codTipoAchivoReporte":"00",
+                     "nomArchivoReporte":"%sLE1073349527320261000014040001EXP2.zip","nomArchivoContenido":null}]}]}
+                """.formatted(NUM_TICKET, NUM_TICKET, NUM_TICKET);
+        sunat.expect(once(), requestTo(CONSULTA_URL))
+                .andRespond(withSuccess(sinContenido, MediaType.APPLICATION_JSON));
+
+        service.procesarTicket(99L);
+
+        sunat.verify(); // no hubo llamada de descarga
+        assertThat(ticket.getEstado()).isEqualTo(EstadoTicketSire.COMPLETADO);
+        assertThat(ticket.getCantidadRegistros()).isZero();
+        assertThat(ticket.getMensaje()).isEqualTo(SireServiceImpl.MENSAJE_SIN_VENTAS);
+        verify(ventaRepository).deleteByClientAndPeriodo(client, PERIODO);
+    }
+
+    @Test
     void zipDeCeroBytesQuedaVacioSinMovimientos() {
         TicketSireEntity ticket = ticketPendiente();
         sunat.expect(requestTo(CONSULTA_URL))

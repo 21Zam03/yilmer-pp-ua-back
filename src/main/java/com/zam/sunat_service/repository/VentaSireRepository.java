@@ -24,6 +24,9 @@ public interface VentaSireRepository extends JpaRepository<VentaSireEntity, Long
 
     long countByClientAndPeriodo(ClientEntity client, String periodo);
 
+    // Para el reporte Excel: todo el periodo, sin paginar (el orden final se aplica en Java por el número).
+    List<VentaSireEntity> findByClientAndPeriodo(ClientEntity client, String periodo);
+
     @Query("""
     SELECT DISTINCT v.fechaEmision FROM VentaSireEntity v
     WHERE v.client = :client AND v.periodo = :periodo AND v.fechaEmision IS NOT NULL
